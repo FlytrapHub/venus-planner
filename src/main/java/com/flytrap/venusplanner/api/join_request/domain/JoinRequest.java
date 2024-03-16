@@ -1,5 +1,6 @@
 package com.flytrap.venusplanner.api.join_request.domain;
 
+import com.flytrap.venusplanner.global.entity.TimeAuditingBaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -7,17 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
-import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class JoinRequest {
+public class JoinRequest extends TimeAuditingBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +27,6 @@ public class JoinRequest {
 
     @NotNull
     private Long studyId;
-
-    @CreatedDate
-    private Instant requestTime;
 
     @Enumerated(EnumType.STRING)
     private JoinRequestState state;
@@ -43,7 +39,14 @@ public class JoinRequest {
     }
 
     public static JoinRequest create(Long studyId, Long memberId) {
-        return null;
+        return JoinRequest.builder()
+                .studyId(studyId).memberId(memberId)
+                .state(JoinRequestState.WAIT)
+                .build();
+    }
+
+    public boolean isWaiting() {
+        return this.state == JoinRequestState.WAIT;
     }
 
     public void accept() {
