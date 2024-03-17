@@ -15,7 +15,7 @@ public interface JoinRequestRepository extends JpaRepository<JoinRequest, Long> 
             + "AND r.studyId = :studyId "
             + "ORDER BY r.createdTime DESC")
     Page<JoinRequest> findMostRecentByMemberIdAndStudyId(
-            @Param("memberId") Long memberId,
-            @Param("studyId") Long studyId,
+            @Param("memberId") long memberId,
+            @Param("studyId") long studyId,
             Pageable pageable);
 }

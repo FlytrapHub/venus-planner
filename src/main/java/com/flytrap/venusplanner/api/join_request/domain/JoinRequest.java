@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -49,8 +50,16 @@ public class JoinRequest extends TimeAuditingBaseEntity {
         return this.state == JoinRequestState.WAIT;
     }
 
-    public void accept() {
+    public boolean validateStudyIdMatch(Long studyId) {
+        return Objects.equals(this.studyId, studyId);
+    }
 
+    public boolean accept() {
+        if (!isWaiting()) {
+            return false;
+        }
+        this.state = JoinRequestState.ACCEPT;
+        return true;
     }
 
     public void reject() {

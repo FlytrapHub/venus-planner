@@ -8,6 +8,7 @@ import com.flytrap.venusplanner.global.auth.dto.SessionMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,17 @@ public class JoinRequestController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new JoinRequestCreateResponse(joinRequest.getId()));
+    }
+
+    @PatchMapping("/api/v1/studies/{studyId}/join-requests/{requestId}/accept")
+    public ResponseEntity<Void> acceptJoinRequest(
+            @PathVariable Long studyId,
+            @PathVariable Long requestId,
+            @SignIn SessionMember sessionMember
+    ) {
+        joinRequestCrudService.acceptJoinRequest(studyId, requestId, sessionMember.id());
+
+        return ResponseEntity.ok(null);
     }
 
 }
