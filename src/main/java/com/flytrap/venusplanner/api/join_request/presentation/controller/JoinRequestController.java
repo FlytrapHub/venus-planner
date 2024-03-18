@@ -42,4 +42,15 @@ public class JoinRequestController {
         return ResponseEntity.ok(null);
     }
 
+    @PatchMapping("/api/v1/studies/{studyId}/join-requests/{requestId}/reject")
+    public ResponseEntity<Void> rejectJoinRequest(
+            @PathVariable Long studyId,
+            @PathVariable Long requestId,
+            @SignIn SessionMember sessionMember
+    ) {
+        joinRequestCrudService.rejectJoinRequest(studyId, requestId, sessionMember.id());
+
+        return ResponseEntity.ok(null);
+    }
+
 }

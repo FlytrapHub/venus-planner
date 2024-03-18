@@ -75,4 +75,30 @@ public class JoinRequestCurdFacadeService {
         joinRequest.accept();
     }
 
+    @Transactional
+    public void rejectJoinRequest(Long studyId, Long requestId, Long memberId) {
+        if (!studyRepository.existsById(studyId)) {
+            throw new StudyNotFoundException("스터디를 찾을 수 없습니다.");
+        }
+
+        MemberStudy memberStudy = memberStudyRepository.findByStudyIdAndMemberId(studyId, memberId)
+                .orElseThrow(() -> new ForbiddenException("스터디 멤버가 아닙니다."));
+
+        if (!memberStudy.isLeader()) {
+            throw new ForbiddenException("수락 권한이 없습니다.");
+        }
+
+        JoinRequest joinRequest = joinRequestRepository.findById(requestId)
+                .orElseThrow(() -> new JoinRequestNotFoundException("JoinRequest를 찾을 수 없습니다."));
+
+        if (!joinRequest.validateStudyIdMatch(studyId)) {
+            throw new StudyMismatchException("요청한 스터디 ID와 가입 요청의 스터디 ID가 일치하지 않습니다");
+        }
+
+        if (!joinRequest.isWaiting()) {
+            throw new JoinRequestAlreadyHandledException("이미 처리된 요청입니다.");
+        }
+        joinRequest.reject();
+    }
+
 }

@@ -62,8 +62,12 @@ public class JoinRequest extends TimeAuditingBaseEntity {
         return true;
     }
 
-    public void reject() {
-
+    public boolean reject() {
+        if (!isWaiting()) {
+            return false;
+        }
+        this.state = JoinRequestState.REJECT;
+        return true;
     }
 
 }
