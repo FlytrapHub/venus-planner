@@ -57,4 +57,11 @@ public class Member extends TimeAuditingBaseEntity {
                 .nickname(userResource.nickname())
                 .build();
     }
+
+    public void updateFrom(StandardizedUserResource userResource) {
+        this.email = userResource.email();
+        this.nickname = userResource.nickname();
+        this.profileImageUrl = userResource.profileUrl();
+    }
+
 }
