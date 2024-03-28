@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.global.auth.infrastructure.properties;
+package com.flytrap.venusplanner.global.auth.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

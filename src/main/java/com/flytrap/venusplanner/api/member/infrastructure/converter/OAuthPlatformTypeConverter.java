@@ -1,5 +1,6 @@
-package com.flytrap.venusplanner.api.member.domain;
+package com.flytrap.venusplanner.api.member.infrastructure.converter;
 
+import com.flytrap.venusplanner.api.member.domain.OAuthPlatformType;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

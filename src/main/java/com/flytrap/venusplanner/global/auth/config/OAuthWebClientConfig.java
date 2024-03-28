@@ -1,6 +1,6 @@
 package com.flytrap.venusplanner.global.auth.config;
 
-import com.flytrap.venusplanner.global.auth.infrastructure.properties.GitHubOAuthProperties;
+import com.flytrap.venusplanner.global.auth.properties.GitHubOAuthProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

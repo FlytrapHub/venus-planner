@@ -3,7 +3,7 @@ package com.flytrap.venusplanner.global.auth.resolver;
 import com.flytrap.venusplanner.global.auth.dto.SessionMember;
 import com.flytrap.venusplanner.global.auth.annotation.SignIn;
 import com.flytrap.venusplanner.global.auth.exception.SessionMemberAuthException;
-import com.flytrap.venusplanner.global.auth.infrastructure.properties.AuthSessionProperties;
+import com.flytrap.venusplanner.global.auth.properties.AuthSessionProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
@@ -42,10 +42,10 @@ public class SignInArgumentResolver implements HandlerMethodArgumentResolver {
 
     private Optional<SessionMember> extractSessionMember(HttpServletRequest request) {
 
-        HttpSession session = request.getSession(false);
+        HttpSession httpSession = request.getSession(false);
 
-        return Optional.ofNullable(session)
-                .map(s -> s.getAttribute(authSessionProperties.sessionName()))
+        return Optional.ofNullable(httpSession)
+                .map(session -> session.getAttribute(authSessionProperties.sessionName()))
                 .filter(SessionMember.class::isInstance)
                 .map(SessionMember.class::cast);
     }

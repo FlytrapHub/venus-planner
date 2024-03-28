@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.global.auth.infrastructure.dto;
+package com.flytrap.venusplanner.api.auth_member.infrastructure.dto;
 
 public record UserEmailResourceFromGitHub(
         String email,

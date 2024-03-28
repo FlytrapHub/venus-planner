@@ -2,7 +2,7 @@ package com.flytrap.venusplanner.api.auth_member.presentation.dto;
 
 import com.flytrap.venusplanner.api.member.domain.Member;
 
-public class LoginDto {
+public class SignInDto {
 
     public record Request(
             String code
