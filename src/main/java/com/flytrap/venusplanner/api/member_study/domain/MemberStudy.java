@@ -52,4 +52,12 @@ public class MemberStudy extends TimeAuditingBaseEntity {
     public boolean isLeader() {
         return Objects.equals(rollId, Roll.LEADER.getId());
     }
+
+    public boolean canAcceptStudyJoinRequest() {
+        return isLeader();
+    }
+
+    public boolean canRejectStudyJoinRequest() {
+        return isLeader();
+    }
 }
