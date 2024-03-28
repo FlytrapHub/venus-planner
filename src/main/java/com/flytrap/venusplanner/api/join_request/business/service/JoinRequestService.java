@@ -17,6 +17,7 @@ public class JoinRequestService implements JoinRequestUpdater, JoinRequestValida
     private final JoinRequestRepository joinRequestRepository;
 
     @Override
+    @Transactional
     public JoinRequest saveJoinRequest(Long studyId, Long memberId) {
         return joinRequestRepository.save(JoinRequest.create(studyId, memberId));
     }
