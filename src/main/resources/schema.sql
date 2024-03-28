@@ -1,4 +1,4 @@
---USE venus_planner;
+-- USE venus_planner;
 
 CREATE TABLE `roll`
 (
@@ -83,3 +83,12 @@ CREATE TABLE `permission`
     `id`   BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(10) NOT NULL COMMENT 'none/edit/members'
 );
+
+CREATE TABLE `join_request`
+(
+    `id`           BIGINT    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `member_id`    BIGINT    NOT NULL,
+    `study_id`     BIGINT    NOT NULL,
+    `created_time` TIMESTAMP NOT NULL,
+    `state`        ENUM('WAIT','REJECT','ACCEPT') NOT NULL
+)
