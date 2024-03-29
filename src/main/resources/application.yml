@@ -4,6 +4,6 @@ spring:
     group:
       local: [ local, oauth-local ] # localhost
       prod: [ prod ] # aws ec2
-    include: [ auth ]
+    include: [ auth, admin ]
   jpa:
     open-in-view: false
