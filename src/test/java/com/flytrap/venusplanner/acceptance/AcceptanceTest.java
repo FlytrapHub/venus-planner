@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.global;
+package com.flytrap.venusplanner.acceptance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
