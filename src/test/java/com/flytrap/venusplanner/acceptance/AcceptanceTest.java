@@ -2,28 +2,35 @@ package com.flytrap.venusplanner.acceptance;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.flytrap.venusplanner.acceptance.common.SessionCookie;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestPropertySource(properties = {"auth.session.sessionName=login_session::"})
 @Sql("classpath:reset.sql")
 public abstract class AcceptanceTest {
 
     @LocalServerPort
     private int port;
+
+    @Value("${server.servlet.session.cookie.name}")
+    protected String sessionCookieName;
 
     static {
         GenericContainer<?> redis =
@@ -36,6 +43,16 @@ public abstract class AcceptanceTest {
     @BeforeAll
     void setUp() {
         RestAssured.port = port;
+    }
+
+    public SessionCookie 테스트_로그인(Long memberId) {
+        String sessionCookieValue = givenJsonRequest()
+                .body(memberId)
+                .when().post("/api/v1/test/sign-in")
+                .then().extract()
+                .cookie(sessionCookieName);
+
+        return new SessionCookie(sessionCookieName, sessionCookieValue);
     }
 
     protected static RequestSpecification givenJsonRequest() {
