@@ -14,6 +14,8 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -22,6 +24,14 @@ public abstract class AcceptanceTest {
 
     @LocalServerPort
     private int port;
+
+    static {
+        GenericContainer<?> redis =
+                new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
+        redis.start();
+        System.setProperty("spring.data.redis.host", redis.getHost());
+        System.setProperty("spring.data.redis.port", redis.getMappedPort(6379).toString());
+    }
 
     @BeforeAll
     void setUp() {
