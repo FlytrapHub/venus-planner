@@ -1,6 +1,6 @@
 package com.flytrap.venusplanner.api.auth_member.infrastructure.external;
 
-import static com.flytrap.venusplanner.api.auth_member.exception.AuthMemberExceptionType.GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION;
+import static com.flytrap.venusplanner.api.auth_member.exception.AuthMemberExceptionType.GitHubOauthRequestFailureException;
 
 import com.flytrap.venusplanner.api.auth_member.infrastructure.dto.AccessTokenFromGitHub;
 import com.flytrap.venusplanner.api.auth_member.infrastructure.dto.StandardizedUserResource;
@@ -66,10 +66,10 @@ public class GitHubOAuthProvider implements OAuthProvider {
                 .onStatus(
                         statusCode -> statusCode.is4xxClientError() || statusCode.is5xxServerError(),
                         response -> response.bodyToMono(String.class)
-                                        .flatMap(body -> Mono.error(GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(body))))
+                                        .flatMap(body -> Mono.error(GitHubOauthRequestFailureException(body))))
                 .bodyToMono(AccessTokenFromGitHub.class)
                 .doOnError(error -> log.error("GitHub에서 액세스 토큰을 요청하는 중 에러 발생", error))
-                .onErrorMap(throwable -> GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(throwable.getMessage()))
+                .onErrorMap(throwable -> GitHubOauthRequestFailureException(throwable.getMessage()))
                 .block();
     }
 
@@ -93,7 +93,7 @@ public class GitHubOAuthProvider implements OAuthProvider {
                 .onStatus(
                         statusCode -> statusCode.is4xxClientError() || statusCode.is5xxServerError(),
                         response -> response.bodyToMono(String.class)
-                                .flatMap(body -> Mono.error(GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(body))))
+                                .flatMap(body -> Mono.error(GitHubOauthRequestFailureException(body))))
                 .bodyToMono(UserResourceFromGitHub.class)
                 .flatMap(userResource -> {
                     if (userResource.isEmailEmpty()) {
@@ -108,7 +108,7 @@ public class GitHubOAuthProvider implements OAuthProvider {
                     return Mono.just(userResource);
                 })
                 .doOnError(error -> log.error("GitHub에서 회원 정보를 요청하는 중 에러 발생", error))
-                .onErrorMap(throwable -> GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(throwable.getMessage()))
+                .onErrorMap(throwable -> GitHubOauthRequestFailureException(throwable.getMessage()))
                 .block();
     }
 
@@ -135,11 +135,11 @@ public class GitHubOAuthProvider implements OAuthProvider {
                 .onStatus(
                         statusCode -> statusCode.is4xxClientError() || statusCode.is5xxServerError(),
                         response -> response.bodyToMono(String.class)
-                                .flatMap(body -> Mono.error(GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(body))))
+                                .flatMap(body -> Mono.error(GitHubOauthRequestFailureException(body))))
                 .bodyToMono(new ParameterizedTypeReference<List<UserEmailResourceFromGitHub>>() {})
                 .map(emailList -> emailList.isEmpty() ? "" : emailList.get(0).email())
                 .doOnError(error -> log.error("GitHub에서 이메일 정보를 요청하는 중 에러 발생", error))
-                .onErrorMap(throwable -> GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(throwable.getMessage()));
+                .onErrorMap(throwable -> GitHubOauthRequestFailureException(throwable.getMessage()));
     }
 
 }

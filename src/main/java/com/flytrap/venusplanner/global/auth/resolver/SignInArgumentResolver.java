@@ -1,6 +1,6 @@
 package com.flytrap.venusplanner.global.auth.resolver;
 
-import static com.flytrap.venusplanner.global.exception.GeneralExceptionType.AUTHENTICATION_FAILURE_EXCEPTION;
+import static com.flytrap.venusplanner.global.exception.GeneralExceptionType.AuthenticationFailureException;
 
 import com.flytrap.venusplanner.global.auth.annotation.SignIn;
 import com.flytrap.venusplanner.global.auth.dto.SessionMember;
@@ -38,7 +38,7 @@ public class SignInArgumentResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 
         return extractSessionMember(request)
-                .orElseThrow(() -> AUTHENTICATION_FAILURE_EXCEPTION("세션 정보가 없습니다. 로그인 해주세요."));
+                .orElseThrow(() -> AuthenticationFailureException("세션 정보가 없습니다. 로그인 해주세요."));
     }
 
     private Optional<SessionMember> extractSessionMember(HttpServletRequest request) {

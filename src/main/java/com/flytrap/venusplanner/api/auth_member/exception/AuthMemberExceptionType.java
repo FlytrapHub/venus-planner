@@ -5,8 +5,8 @@ import com.flytrap.venusplanner.global.exception.GeneralExceptionType;
 
 public class AuthMemberExceptionType extends GeneralExceptionType {
 
-    public static CustomException GITHUB_OAUTH_REQUEST_FAILURE_EXCEPTION(String message) {
-        return API_REQUEST_FAILURE_EXCEPTION(message);
+    public static CustomException GitHubOauthRequestFailureException(String message) {
+        return ApiRequestFailureException(message);
     }
 
 }
