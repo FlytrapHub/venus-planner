@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import java.time.Instant;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -38,6 +40,9 @@ public class Member extends TimeAuditingBaseEntity {
 
     @NotNull
     private String nickname;
+
+    @CreatedDate
+    private Instant createdTime;
 
     @Builder
     private Member(String oauthPk, Long oauthPlatformId, String email, String profileImageUrl, String nickname) {
