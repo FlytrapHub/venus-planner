@@ -23,9 +23,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    show-sql: false
+    show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     defer-datasource-initialization: true
   data:
     redis:
