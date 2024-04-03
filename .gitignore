@@ -35,6 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
-/gradle/wrapper/gradle-wrapper.jar
-/src/main/resources/application-auth.yml
-/src/main/resources/application-oauth-local.yml
+/src/main/resources/*
