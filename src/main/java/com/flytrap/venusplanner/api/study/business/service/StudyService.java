@@ -1,6 +1,7 @@
 package com.flytrap.venusplanner.api.study.business.service;
 
-import com.flytrap.venusplanner.api.join_request.exception.StudyNotFoundException;
+import static com.flytrap.venusplanner.api.study.exception.StudyExceptionType.StudyNotFoundException;
+
 import com.flytrap.venusplanner.api.study.domain.Study;
 import com.flytrap.venusplanner.api.study.infrastructure.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +21,13 @@ public class StudyService implements StudyValidator {
     }
 
     public Study findById(Long studyId) {
-        //TODO: optional null 처리
-        return studyRepository.findById(studyId).get();
+        return studyRepository.findById(studyId).orElseThrow(() -> StudyNotFoundException(studyId));
     }
 
     @Override
     public void validateStudyExists(Long studyId) {
         if (!studyRepository.existsById(studyId)) {
-            // TODO: 예외처리 방식 결정되면 변경하기
-            throw new StudyNotFoundException("스터디를 찾을 수 없습니다.");
+            throw StudyNotFoundException(studyId);
         }
     }
 }

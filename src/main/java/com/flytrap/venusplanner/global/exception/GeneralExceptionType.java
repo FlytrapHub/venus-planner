@@ -45,6 +45,16 @@ public class GeneralExceptionType {
     }
 
     /**
+     * 어떤 도메인을 중복으로 생성할 수 없을 때 사용하는 예외입니다.
+     *
+     * @param message 예외 메세지
+     * @return CustomException 객체
+     */
+    public static CustomException DuplicateDomainException(String message) {
+        return new CustomException(HttpStatus.CONFLICT, message);
+    }
+
+    /**
      * 주어진 Enum 타입에 존재하지 않는 이름을 사용했을 때 발생하는 예외입니다.
      *
      * @param enumClazz 대상 Enum 클래스

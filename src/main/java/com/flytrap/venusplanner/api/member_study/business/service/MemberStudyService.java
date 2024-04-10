@@ -1,6 +1,7 @@
 package com.flytrap.venusplanner.api.member_study.business.service;
 
-import com.flytrap.venusplanner.api.join_request.exception.ForbiddenException;
+import static com.flytrap.venusplanner.global.exception.GeneralExceptionType.ForbiddenException;
+
 import com.flytrap.venusplanner.api.member_study.domain.MemberStudy;
 import com.flytrap.venusplanner.api.member_study.infrastructure.repository.MemberStudyRepository;
 import com.flytrap.venusplanner.api.study.domain.Study;
@@ -32,21 +33,20 @@ public class MemberStudyService implements MemberStudyValidator {
     @Override
     public void validateMemberCanAcceptJoinRequest(Long memberId, Long studyId) {
         MemberStudy memberStudy = memberStudyRepository.findByStudyIdAndMemberId(studyId, memberId)
-                .orElseThrow(() -> new ForbiddenException("스터디 멤버가 아닙니다.")); // TODO: 예외처리 방식 결정되면 변경하기
+                .orElseThrow(() -> ForbiddenException("스터디 멤버가 아닙니다."));
 
         if (!memberStudy.canAcceptStudyJoinRequest()) {
-            throw new ForbiddenException("수락 권한이 없습니다.");
+            throw ForbiddenException("수락 권한이 없습니다.");
         }
     }
 
     @Override
     public void validateMemberCanRejectJoinRequest(Long memberId, Long studyId) {
         MemberStudy memberStudy = memberStudyRepository.findByStudyIdAndMemberId(studyId, memberId)
-                .orElseThrow(() -> new ForbiddenException("스터디 멤버가 아닙니다.")); // TODO: 예외처리 방식 결정되면 변경하기
+                .orElseThrow(() -> ForbiddenException("스터디 멤버가 아닙니다."));
 
         if (!memberStudy.canAcceptStudyJoinRequest()) {
-            // TODO: 예외처리 방식 결정되면 변경하기
-            throw new ForbiddenException("거절 권한이 없습니다.");
+            throw ForbiddenException("거절 권한이 없습니다.");
         }
     }
 }
