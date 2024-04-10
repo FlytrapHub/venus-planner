@@ -17,3 +17,7 @@ spring:
         show_sql: true
         format_sql: true
         highlight_sql: true
+
+auth:
+  session:
+    session-name: "login_session::"
