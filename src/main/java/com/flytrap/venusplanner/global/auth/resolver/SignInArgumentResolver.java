@@ -43,10 +43,10 @@ public class SignInArgumentResolver implements HandlerMethodArgumentResolver {
 
     private Optional<SessionMember> extractSessionMember(HttpServletRequest request) {
 
-        HttpSession session = request.getSession(false);
+        HttpSession httpSession = request.getSession(false);
 
-        return Optional.ofNullable(session)
-                .map(s -> s.getAttribute(authSessionProperties.sessionName()))
+        return Optional.ofNullable(httpSession)
+                .map(session -> session.getAttribute(authSessionProperties.sessionName()))
                 .filter(SessionMember.class::isInstance)
                 .map(SessionMember.class::cast);
     }
