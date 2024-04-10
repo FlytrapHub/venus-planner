@@ -17,14 +17,14 @@ public class JoinRequestStep extends AcceptanceTest {
     public static ExtractableResponse<Response> 스터디_가입_요청_수락(Long studyId, Long requestId, SessionCookie sessionCookie) {
         return givenJsonRequest()
                 .cookie(sessionCookie.name(), sessionCookie.value())
-                .when().post("/api/v1/studies/{studyId}/join-requests/{requestId}/accept", studyId, requestId)
+                .when().patch("/api/v1/studies/{studyId}/join-requests/{requestId}/accept", studyId, requestId)
                 .then().log().all().extract();
     }
 
     public static ExtractableResponse<Response> 스터디_가입_요청_거절(Long studyId, Long requestId, SessionCookie sessionCookie) {
         return givenJsonRequest()
                 .cookie(sessionCookie.name(), sessionCookie.value())
-                .when().post("/api/v1/studies/{studyId}/join-requests/{requestId}/reject", studyId, requestId)
+                .when().patch("/api/v1/studies/{studyId}/join-requests/{requestId}/reject", studyId, requestId)
                 .then().log().all().extract();
     }
 
