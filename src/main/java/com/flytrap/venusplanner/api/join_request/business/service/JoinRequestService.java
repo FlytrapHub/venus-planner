@@ -1,8 +1,9 @@
 package com.flytrap.venusplanner.api.join_request.business.service;
 
+import static com.flytrap.venusplanner.api.join_request.exception.JoinRequestExceptionType.JoinRequestNotFoundException;
+
 import com.flytrap.venusplanner.api.join_request.domain.JoinRequest;
 import com.flytrap.venusplanner.api.join_request.domain.JoinRequestState;
-import com.flytrap.venusplanner.api.join_request.exception.JoinRequestNotFoundException;
 import com.flytrap.venusplanner.api.join_request.infrastructure.repository.JoinRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,6 @@ public class JoinRequestService implements JoinRequestUpdater, JoinRequestValida
     @Override
     public JoinRequest findById(Long joinRequestId) {
         return joinRequestRepository.findById(joinRequestId)
-                .orElseThrow(() -> new JoinRequestNotFoundException("JoinRequest를 찾을 수 없습니다."));
-        // TODO: 예외처리 방식 결정되면 변경하기
+                .orElseThrow(() -> JoinRequestNotFoundException(joinRequestId));
     }
 }

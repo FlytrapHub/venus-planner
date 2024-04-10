@@ -1,9 +1,11 @@
 package com.flytrap.venusplanner.api.join_request.business.service;
 
+import static com.flytrap.venusplanner.api.join_request.exception.JoinRequestExceptionType.DuplicateJoinRequestException;
+import static com.flytrap.venusplanner.api.join_request.exception.JoinRequestExceptionType.JoinRequestAlreadyHandledException;
+import static com.flytrap.venusplanner.api.study.exception.StudyExceptionType.StudyAlreadyJoinedException;
+import static com.flytrap.venusplanner.api.study.exception.StudyExceptionType.StudyMismatchException;
+
 import com.flytrap.venusplanner.api.join_request.domain.JoinRequest;
-import com.flytrap.venusplanner.api.join_request.exception.JoinRequestAlreadyHandledException;
-import com.flytrap.venusplanner.api.join_request.exception.StudyAlreadyJoinedException;
-import com.flytrap.venusplanner.api.join_request.exception.StudyMismatchException;
 import com.flytrap.venusplanner.api.member_study.business.service.MemberStudyValidator;
 import com.flytrap.venusplanner.api.study.business.service.StudyValidator;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +27,12 @@ public class JoinRequestCurdFacadeService {
         studyValidator.validateStudyExists(studyId);
 
         if (memberStudyValidator.validateMemberBelongsToStudy(memberId, studyId)) {
-            throw new StudyAlreadyJoinedException("이미 스터디에 가입되어 있습니다.");
+            throw StudyAlreadyJoinedException();
         }
 
-        joinRequestValidator.validateWaitingJoinRequestExists(studyId, memberId);
+        if (joinRequestValidator.validateWaitingJoinRequestExists(studyId, memberId)) {
+            throw DuplicateJoinRequestException();
+        }
 
         return joinRequestUpdater.saveJoinRequest(studyId, memberId);
     }
@@ -41,11 +45,11 @@ public class JoinRequestCurdFacadeService {
         JoinRequest joinRequest = joinRequestValidator.findById(requestId);
 
         if (!joinRequest.validateStudyIdMatch(studyId)) {
-            throw new StudyMismatchException("요청한 스터디 ID와 가입 요청의 스터디 ID가 일치하지 않습니다");
+            throw StudyMismatchException("요청한 스터디 ID와 가입 요청의 스터디 ID가 일치하지 않습니다.");
         }
 
         if (!joinRequest.isWaiting()) {
-            throw new JoinRequestAlreadyHandledException("이미 처리된 요청입니다.");
+            throw JoinRequestAlreadyHandledException();
         }
 
         joinRequest.accept();
@@ -59,11 +63,11 @@ public class JoinRequestCurdFacadeService {
         JoinRequest joinRequest = joinRequestValidator.findById(requestId);
 
         if (!joinRequest.validateStudyIdMatch(studyId)) {
-            throw new StudyMismatchException("요청한 스터디 ID와 가입 요청의 스터디 ID가 일치하지 않습니다");
+            throw StudyMismatchException("요청한 스터디 ID와 가입 요청의 스터디 ID가 일치하지 않습니다.");
         }
 
         if (!joinRequest.isWaiting()) {
-            throw new JoinRequestAlreadyHandledException("이미 처리된 요청입니다.");
+            throw JoinRequestAlreadyHandledException();
         }
 
         joinRequest.reject();
