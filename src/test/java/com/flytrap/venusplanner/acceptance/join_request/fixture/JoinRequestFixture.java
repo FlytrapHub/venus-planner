@@ -35,6 +35,10 @@ public class JoinRequestFixture {
         return new Study("알고리즘 챌린지", "알고리즘 실력을 쌓아갑니다.");
     }
 
+    public static Study 파이썬_스터디() {
+        return new Study("Python 스터디", "최신 Python 트렌드를 공부하며 프로젝트를 함께 진행합니다.");
+    }
+
     public static MemberStudy 리더_멤버_스터디(Study study, Member leader) {
         return MemberStudy.fromLeader(leader.getId(), study);
     }

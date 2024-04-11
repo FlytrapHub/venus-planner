@@ -69,6 +69,10 @@ public abstract class AcceptanceTest {
         응답_상태코드_검증(response, HttpStatus.CREATED);
     }
 
+    protected void 응답_코드는_400_BAD_REQUEST_를_반환한다(ExtractableResponse<Response> response) {
+        응답_상태코드_검증(response, HttpStatus.BAD_REQUEST);
+    }
+
     protected void 응답_코드는_403_FORBIDDEN_를_반환한다(ExtractableResponse<Response> response) {
         응답_상태코드_검증(response, HttpStatus.FORBIDDEN);
     }
