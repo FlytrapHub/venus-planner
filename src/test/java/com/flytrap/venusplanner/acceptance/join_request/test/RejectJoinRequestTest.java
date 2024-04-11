@@ -114,7 +114,7 @@ public class RejectJoinRequestTest extends AcceptanceTest {
     }
 
     @Test
-    void 가입_요청시_URL의_JOIN_REQUEST가_STUDY에_포함되지_않으면_가입_요청은_수락_할_수_없다() {
+    void 가입_요청시_URL의_JOIN_REQUEST가_STUDY에_포함되지_않으면_가입_요청은_거절_할_수_없다() {
         // given
         var leader = memberRepository.save(리더());
         var member = memberRepository.save(멤버_01());
