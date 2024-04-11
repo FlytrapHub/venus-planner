@@ -13,4 +13,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
             "OR (YEAR(p.end_time) = :year AND MONTH(p.end_time) = :month)",
             nativeQuery = true)
     List<Plan> findAllByStudyIdAndYearAndMonth(Long studyId, int year, int month);
+
+    void deleteAllByRecurringOptionId(Long recurringOptionId);
 }

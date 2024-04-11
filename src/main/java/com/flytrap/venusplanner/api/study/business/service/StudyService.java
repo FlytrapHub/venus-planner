@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class StudyService {
+public class StudyService implements StudyValid {
 
     private final StudyRepository studyRepository;
 
@@ -18,6 +18,7 @@ public class StudyService {
         return studyRepository.save(study);
     }
 
+    @Override
     public Study findById(Long studyId) {
         //TODO: optional null 처리
         return studyRepository.findById(studyId).get();

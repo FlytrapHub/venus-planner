@@ -67,7 +67,6 @@ public class Plan {
         this.notificationTime = notificationTime;
     }
 
-    @PrePersist
     @PreUpdate
     public void validateTitle() {
         final String DEFAULT_TILE = "새로운 일정";
@@ -75,5 +74,13 @@ public class Plan {
         if (title == null || title.isEmpty()) {
             title = DEFAULT_TILE;
         }
+    }
+
+    @PrePersist
+    private void beforeSave() {
+        if (recurringOption != null) {
+            recurringOption.calculate(startTime);
+        }
+        validateTitle();
     }
 }

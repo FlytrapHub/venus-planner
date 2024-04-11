@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.api.study_plan.presentation.dto.request;
+package com.flytrap.venusplanner.api.plan.presentation.dto.request;
 
 import com.flytrap.venusplanner.api.plan.domain.EndOption;
 import com.flytrap.venusplanner.api.plan.domain.Frequency;

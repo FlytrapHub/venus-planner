@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.api.study_plan.presentation.dto.request;
+package com.flytrap.venusplanner.api.plan.presentation.dto.request;
 
 import com.flytrap.venusplanner.api.plan.domain.Plan;
 import com.flytrap.venusplanner.api.plan.domain.RecurringOption;
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.time.Instant;
 import java.util.Optional;
 
-public record StudyPlanCreateRequest(
+public record PlanCreateRequest(
         @NotNull
         Long categoryId,
 

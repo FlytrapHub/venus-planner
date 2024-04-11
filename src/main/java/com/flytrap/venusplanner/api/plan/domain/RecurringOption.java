@@ -40,4 +40,17 @@ public class RecurringOption {
         this.recurrenceCount = recurrenceCount;
         this.endDate = endDate;
     }
+
+    public void calculate(Instant startDate) {
+        //TODO:(의견1) endOption에서 계산 로직 실행
+        if (recurrenceCount != null && endDate != null) {
+            return;
+        }
+
+        if (endOption == EndOption.COUNT && recurrenceCount != null) {
+            this.endDate = frequency.calculateEndDate(startDate, recurrenceCount);
+        } else if (endOption == EndOption.DATE && endDate != null) {
+            this.recurrenceCount = frequency.calculateCount(startDate, endDate);
+        }
+    }
 }

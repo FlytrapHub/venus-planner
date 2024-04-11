@@ -1,4 +1,4 @@
-package com.flytrap.venusplanner.api.study_plan.presentation.dto.request;
+package com.flytrap.venusplanner.api.plan.presentation.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
