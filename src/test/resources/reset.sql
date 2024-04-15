@@ -11,3 +11,5 @@ TRUNCATE TABLE plan;
 TRUNCATE TABLE plan_category;
 
 TRUNCATE TABLE recurring_option;
+
+TRUNCATE TABLE join_request;
