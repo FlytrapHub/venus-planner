@@ -1,13 +1,13 @@
 package com.flytrap.venusplanner.acceptance.join_request.test;
 
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.리더;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.리더_멤버_스터디;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.멤버_01;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.멤버_스터디;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.수락된_가입_요청;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.신규_가입_요청;
-import static com.flytrap.venusplanner.acceptance.join_request.fixture.JoinRequestFixture.알고리즘_스터디;
 import static com.flytrap.venusplanner.acceptance.join_request.step.JoinRequestStep.스터디_가입_요청;
+import static com.flytrap.venusplanner.global.fixture.JoinRequestFixture.수락된_가입_요청;
+import static com.flytrap.venusplanner.global.fixture.JoinRequestFixture.신규_가입_요청;
+import static com.flytrap.venusplanner.global.fixture.MemberFixture.리더;
+import static com.flytrap.venusplanner.global.fixture.MemberFixture.멤버_01;
+import static com.flytrap.venusplanner.global.fixture.MemberStudyFixture.리더_멤버_스터디;
+import static com.flytrap.venusplanner.global.fixture.MemberStudyFixture.멤버_스터디;
+import static com.flytrap.venusplanner.global.fixture.StudyFixture.알고리즘_스터디;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
