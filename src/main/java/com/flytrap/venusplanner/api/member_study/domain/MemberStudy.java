@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,5 +47,17 @@ public class MemberStudy extends TimeAuditingBaseEntity {
                 .rollId(Roll.LEADER.getId())
                 .permissionId(Permission.EDIT.getId())
                 .build();
+    }
+
+    public boolean isLeader() {
+        return Objects.equals(rollId, Roll.LEADER.getId());
+    }
+
+    public boolean canAcceptStudyJoinRequest() {
+        return isLeader();
+    }
+
+    public boolean canRejectStudyJoinRequest() {
+        return isLeader();
     }
 }

@@ -1,5 +1,7 @@
 package com.flytrap.venusplanner.api.study.business.service;
 
+import static com.flytrap.venusplanner.api.study.exception.StudyExceptionType.StudyNotFoundException;
+
 import com.flytrap.venusplanner.api.study.domain.Study;
 import com.flytrap.venusplanner.api.study.infrastructure.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class StudyService {
+public class StudyService implements StudyValidator {
 
     private final StudyRepository studyRepository;
 
@@ -19,7 +21,13 @@ public class StudyService {
     }
 
     public Study findById(Long studyId) {
-        //TODO: optional null 처리
-        return studyRepository.findById(studyId).get();
+        return studyRepository.findById(studyId).orElseThrow(() -> StudyNotFoundException(studyId));
+    }
+
+    @Override
+    public void validateStudyExists(Long studyId) {
+        if (!studyRepository.existsById(studyId)) {
+            throw StudyNotFoundException(studyId);
+        }
     }
 }
