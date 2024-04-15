@@ -39,7 +39,7 @@ public class JoinRequestController {
     ) {
         joinRequestCrudService.acceptJoinRequest(studyId, requestId, sessionMember.id());
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/api/v1/studies/{studyId}/join-requests/{requestId}/reject")
@@ -50,7 +50,7 @@ public class JoinRequestController {
     ) {
         joinRequestCrudService.rejectJoinRequest(studyId, requestId, sessionMember.id());
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok().build();
     }
 
 }
